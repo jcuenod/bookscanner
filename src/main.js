@@ -2,7 +2,6 @@ import 'regenerator-runtime/runtime'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import BookDialog from './components/BookDialog'
-// import Scanner from './components/Scanner'
 
 import VideoHelper from './util/VideoHelper'
 
@@ -69,7 +68,6 @@ class App extends React.Component{
 				</div>
 			</div>
 			<video id="video" className={this.state.showVideoOverlay ? "show" : ""} />
-			{/* this.state.showVideoOverlay ? <Scanner onDetected={d => console.log(d)} /> : null */}
 			<BookDialog
 				addBookHandler={this.addBookHandler.bind(this)}
 				visible={this.state.showBookDialog}
