@@ -64,7 +64,7 @@ class App extends React.Component{
 			breadcrumb...
 			</div>
 			<div className="section-content">
-				<ul>
+				<ul className="bookList">
 					{this.state.bookList.map(b => <BookListItem key={b.uid} {...b} />)}
 				</ul>
 			</div>

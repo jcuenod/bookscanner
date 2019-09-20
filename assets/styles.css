@@ -85,3 +85,17 @@ video {
 	transform: scale(1) !important;
 	pointer-events: auto !important;
 }
+
+.bookList {
+	border-spacing: 7px;
+}
+.bookListItem {
+	display:table-row;
+}
+.bookListItem > div {
+	display: table-cell;
+}
+.bookListItem > div:first-child {
+	width: 15%;
+	background-size: cover;
+}
