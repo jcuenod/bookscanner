@@ -10,7 +10,6 @@
   "license": "ISC",
   "dependencies": {
     "@zxing/library": "^0.15.1",
-    "quagga": "^0.12.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
   },
