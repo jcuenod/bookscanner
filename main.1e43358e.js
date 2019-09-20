@@ -31353,22 +31353,12 @@ var BookListItem = function BookListItem(_ref) {
       date = _ref.date,
       imgSrc = _ref.imgSrc;
   return _react.default.createElement("div", {
-    style: {
-      display: "flex",
-      flexDirection: "row"
-    }
+    className: "bookListItem"
   }, _react.default.createElement("div", {
     style: {
-      flex: "0 0 auto"
+      backgroundImage: "url(".concat(imgSrc, ")")
     }
-  }, _react.default.createElement("img", {
-    src: imgSrc,
-    height: "90px"
-  })), _react.default.createElement("div", {
-    style: {
-      flex: "1 0 auto"
-    }
-  }, _react.default.createElement("div", {
+  }), _react.default.createElement("div", null, _react.default.createElement("div", {
     style: {
       fontFamily: "Roboto Condensed",
       fontWeight: "bold"
@@ -31840,7 +31830,9 @@ function (_React$Component) {
         className: "section-breadcrumb"
       }, "breadcrumb..."), _react.default.createElement("div", {
         className: "section-content"
-      }, _react.default.createElement("ul", null, this.state.bookList.map(function (b) {
+      }, _react.default.createElement("ul", {
+        className: "bookList"
+      }, this.state.bookList.map(function (b) {
         return _react.default.createElement(_BookListItem.default, _extends({
           key: b.uid
         }, b));
@@ -31900,7 +31892,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41511" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45043" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
