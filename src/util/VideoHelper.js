@@ -40,11 +40,16 @@ const doIsbnSearch = async (isbn) => {
 const scanItem = async (callback) => {
 	console.log("scanning!")
 	console.log(selected_device_id)
-	const result = await barcodeReader.decodeOnceFromVideoDevice(selected_device_id, 'video')
+	let result = await barcodeReader.decodeOnceFromVideoDevice(selected_device_id, 'video')
+	while (!/\d{13}/.test(result.text)) {
+		alert("failed to get a real reading (trying to try again)")
+		result = await barcodeReader.decodeOnceFromVideoDevice(selected_device_id, 'video')
+	}
 	const bookData = await doIsbnSearch(result.text)
 	bookData.isbnSearch = result.text
 	callback(bookData)
 	barcodeReader.reset()
+	barcodeReader.stop()
 	// .catch(err => {
 	// 	console.error(err)
 	// })

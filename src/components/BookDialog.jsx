@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 
 const overlayStyles = {
-	position: "absolute",
+	position: "fixed",
 	top: 0,
 	left: 0,
 	width: "100%",
@@ -12,7 +12,7 @@ const overlayStyles = {
 	transition: "opacity 300ms linear, transform 300ms linear"
 }
 const dialogStyles = {
-	position: "fixed",
+	position: "absolute",
 	top: "10%",
 	left: "5%",
 	bottom: "5%",

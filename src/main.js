@@ -1,8 +1,11 @@
 import 'regenerator-runtime/runtime'
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+
+import BookListItem from './components/BookListItem'
 import BookDialog from './components/BookDialog'
 
+import BookListManager from './util/BookListManager'
 import VideoHelper from './util/VideoHelper'
 
 const colors = {
@@ -13,6 +16,7 @@ const colors = {
 	darkNeutral: "#2E3640"
 }
 
+let observer_id = -1
 class App extends React.Component{
 	constructor(props) {
 		super(props)
@@ -20,14 +24,16 @@ class App extends React.Component{
 			showVideoOverlay: false,
 			showBookDialog: false,
 			bookDetails: {},
-			bookList: []
+			bookList: BookListManager.getAll()
 		}
+		observer_id = BookListManager.registerObserver((bookList) => {
+			this.setState({bookList})
+		})
 	}
 	addBookHandler() {
-		const bookList = this.state.bookList.slice(0)
-		const {title, subtitle, author, isbn} = this.state.bookDetails
-		bookList.push(this.state.bookDetails)
-		this.setState({showBookDialog: false, bookList})
+		const { title, subtitle, author, isbn } = this.state.bookDetails
+		BookListManager.add(this.state.bookDetails)
+		this.setState({showBookDialog: false})
 	}
 	scanClickHandler() {
 		this.setState({showVideoOverlay: true})
@@ -39,7 +45,7 @@ class App extends React.Component{
 			const title = details.items[0]?.volumeInfo?.title
 			const subtitle = details.items[0]?.volumeInfo?.subtitle
 			const author = details.items[0]?.volumeInfo?.authors.join(", ")
-			const date = details.items[0]?.volumeInfo?.publishedDate.replace(/(\d{4})/,'$1')
+			const date = details.items[0]?.volumeInfo?.publishedDate.replace(/(.*)(\d{4})(.*)/,'$2')
 			const publisher = details.items[0]?.volumeInfo?.publisher
 			const imgSrc = details.items[0]?.volumeInfo?.imageLinks?.smallThumbnail
 			const isbn = details.isbnSearch
@@ -59,7 +65,7 @@ class App extends React.Component{
 			</div>
 			<div className="section-content">
 				<ul>
-					{this.state.bookList.map(b => <li>{b.title}<br />{b.subtitle}<br />{b.author}<br />{b.isbn}</li>)}
+					{this.state.bookList.map(b => <BookListItem key={b.uid} {...b} />)}
 				</ul>
 			</div>
 			<div className="section-footer" style={{ textAlign: "center" }}>
