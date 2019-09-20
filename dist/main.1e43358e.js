@@ -31419,7 +31419,9 @@ var BookDialog = function BookDialog(_ref2) {
       bookDetails = _ref2.bookDetails,
       addBookHandler = _ref2.addBookHandler;
   return _react.default.createElement("div", {
-    style: overlayStyles,
+    style: _objectSpread({}, overlayStyles, {
+      pointerEvents: visible ? "auto" : "none"
+    }),
     className: visible ? "show" : ""
   }, _react.default.createElement(DetailDisplay, _extends({}, bookDetails, {
     addBookHandler: addBookHandler
@@ -31699,6 +31701,9 @@ function (_React$Component) {
         onClick: this.scanClickHandler.bind(this)
       }, "SCAN")), _react.default.createElement("video", {
         id: "video",
+        style: {
+          pointerEvents: this.state.showVideoOverlay ? "auto" : "none"
+        },
         className: this.state.showVideoOverlay ? "show" : ""
       }), _react.default.createElement(_BookDialog.default, {
         addBookHandler: this.addBookHandler.bind(this),
@@ -31742,7 +31747,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "36607" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "43537" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
