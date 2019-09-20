@@ -31333,7 +31333,52 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"src/components/BookDialog.jsx":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"src/components/BookListItem.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+
+var BookListItem = function BookListItem(_ref) {
+  var title = _ref.title,
+      subtitle = _ref.subtitle,
+      author = _ref.author,
+      publisher = _ref.publisher,
+      date = _ref.date,
+      imgSrc = _ref.imgSrc;
+  return _react.default.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "row"
+    }
+  }, _react.default.createElement("div", {
+    style: {
+      flex: "0 0 auto"
+    }
+  }, _react.default.createElement("img", {
+    src: imgSrc,
+    height: "90px"
+  })), _react.default.createElement("div", {
+    style: {
+      flex: "1 0 auto"
+    }
+  }, _react.default.createElement("div", {
+    style: {
+      fontFamily: "Roboto Condensed",
+      fontWeight: "bold"
+    }
+  }, title), _react.default.createElement("p", null, subtitle), _react.default.createElement("p", null, author), _react.default.createElement("p", null, [publisher, date].join(", "))));
+};
+
+var _default = BookListItem;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"src/components/BookDialog.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31354,7 +31399,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var overlayStyles = {
-  position: "absolute",
+  position: "fixed",
   top: 0,
   left: 0,
   width: "100%",
@@ -31365,7 +31410,7 @@ var overlayStyles = {
   transition: "opacity 300ms linear, transform 300ms linear"
 };
 var dialogStyles = {
-  position: "fixed",
+  position: "absolute",
   top: "10%",
   left: "5%",
   bottom: "5%",
@@ -31430,7 +31475,83 @@ var BookDialog = function BookDialog(_ref2) {
 
 var _default = BookDialog;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"src/util/VideoHelper.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"src/util/BookListManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
+var _bookList = JSON.parse(localStorage.getItem("book_list")) || [];
+
+var next_uid = Math.max.apply(Math, [0].concat(_toConsumableArray(_bookList.map(function (b) {
+  return b.uid;
+})))) + 1;
+var next_oid = 0;
+var _observers = [];
+
+var save = function save() {
+  localStorage.setItem("book_list", JSON.stringify(_bookList));
+};
+
+var notifyObservers = function notifyObservers() {
+  _observers.forEach(function (o) {
+    o.callback(_bookList);
+  });
+};
+
+var BookListManager = {
+  get: function get(uid) {
+    return _bookList.filter(function (b) {
+      return b.uid === uid;
+    })[0] || null;
+  },
+  getAll: function getAll() {
+    return _bookList;
+  },
+  add: function add(book) {
+    book.uid = next_uid++;
+
+    _bookList.push(book);
+
+    save();
+    notifyObservers();
+  },
+  remove: function remove(uid) {
+    var doomedId = _bookList.findIndex(function (b) {
+      return b.uid === uid;
+    });
+
+    _bookList = _bookList.splice(doomedId, 1);
+    save();
+    notifyObservers();
+  },
+  registerObserver: function registerObserver(callback) {
+    _observers.push({
+      oid: next_oid++,
+      callback: callback
+    });
+  },
+  unregisterObserver: function unregisterObserver(oid) {
+    var doomedId = _observers.findIndex(function (observer) {
+      return observer.oid === oid;
+    });
+
+    _observers.splice(doomedId, 1);
+  }
+};
+var _default = BookListManager;
+exports.default = _default;
+},{}],"src/util/VideoHelper.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31524,18 +31645,36 @@ function () {
 
           case 4:
             result = _context2.sent;
-            _context2.next = 7;
+
+          case 5:
+            if (/\d{13}/.test(result.text)) {
+              _context2.next = 12;
+              break;
+            }
+
+            alert("failed to get a real reading (trying to try again)");
+            _context2.next = 9;
+            return barcodeReader.decodeOnceFromVideoDevice(selected_device_id, 'video');
+
+          case 9:
+            result = _context2.sent;
+            _context2.next = 5;
+            break;
+
+          case 12:
+            _context2.next = 14;
             return doIsbnSearch(result.text);
 
-          case 7:
+          case 14:
             bookData = _context2.sent;
             bookData.isbnSearch = result.text;
             callback(bookData);
-            barcodeReader.reset(); // .catch(err => {
+            barcodeReader.reset();
+            barcodeReader.stop(); // .catch(err => {
             // 	console.error(err)
             // })
 
-          case 11:
+          case 19:
           case "end":
             return _context2.stop();
         }
@@ -31564,7 +31703,11 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _reactDom = _interopRequireDefault(require("react-dom"));
 
+var _BookListItem = _interopRequireDefault(require("./components/BookListItem"));
+
 var _BookDialog = _interopRequireDefault(require("./components/BookDialog"));
+
+var _BookListManager = _interopRequireDefault(require("./util/BookListManager"));
 
 var _VideoHelper = _interopRequireDefault(require("./util/VideoHelper"));
 
@@ -31573,6 +31716,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -31597,6 +31742,7 @@ var colors = {
   accent: "#3A55BE",
   darkNeutral: "#2E3640"
 };
+var observer_id = -1;
 
 var App =
 /*#__PURE__*/
@@ -31613,24 +31759,29 @@ function (_React$Component) {
       showVideoOverlay: false,
       showBookDialog: false,
       bookDetails: {},
-      bookList: []
+      bookList: _BookListManager.default.getAll()
     };
+    observer_id = _BookListManager.default.registerObserver(function (bookList) {
+      _this.setState({
+        bookList: bookList
+      });
+    });
     return _this;
   }
 
   _createClass(App, [{
     key: "addBookHandler",
     value: function addBookHandler() {
-      var bookList = this.state.bookList.slice(0);
       var _this$state$bookDetai = this.state.bookDetails,
           title = _this$state$bookDetai.title,
           subtitle = _this$state$bookDetai.subtitle,
           author = _this$state$bookDetai.author,
           isbn = _this$state$bookDetai.isbn;
-      bookList.push(this.state.bookDetails);
+
+      _BookListManager.default.add(this.state.bookDetails);
+
       this.setState({
-        showBookDialog: false,
-        bookList: bookList
+        showBookDialog: false
       });
     }
   }, {
@@ -31653,7 +31804,7 @@ function (_React$Component) {
         var title = (_details$items$ = details.items[0]) === null || _details$items$ === void 0 ? void 0 : (_details$items$$volum = _details$items$.volumeInfo) === null || _details$items$$volum === void 0 ? void 0 : _details$items$$volum.title;
         var subtitle = (_details$items$2 = details.items[0]) === null || _details$items$2 === void 0 ? void 0 : (_details$items$2$volu = _details$items$2.volumeInfo) === null || _details$items$2$volu === void 0 ? void 0 : _details$items$2$volu.subtitle;
         var author = (_details$items$3 = details.items[0]) === null || _details$items$3 === void 0 ? void 0 : (_details$items$3$volu = _details$items$3.volumeInfo) === null || _details$items$3$volu === void 0 ? void 0 : _details$items$3$volu.authors.join(", ");
-        var date = (_details$items$4 = details.items[0]) === null || _details$items$4 === void 0 ? void 0 : (_details$items$4$volu = _details$items$4.volumeInfo) === null || _details$items$4$volu === void 0 ? void 0 : _details$items$4$volu.publishedDate.replace(/(\d{4})/, '$1');
+        var date = (_details$items$4 = details.items[0]) === null || _details$items$4 === void 0 ? void 0 : (_details$items$4$volu = _details$items$4.volumeInfo) === null || _details$items$4$volu === void 0 ? void 0 : _details$items$4$volu.publishedDate.replace(/(.*)(\d{4})(.*)/, '$2');
         var publisher = (_details$items$5 = details.items[0]) === null || _details$items$5 === void 0 ? void 0 : (_details$items$5$volu = _details$items$5.volumeInfo) === null || _details$items$5$volu === void 0 ? void 0 : _details$items$5$volu.publisher;
         var imgSrc = (_details$items$6 = details.items[0]) === null || _details$items$6 === void 0 ? void 0 : (_details$items$6$volu = _details$items$6.volumeInfo) === null || _details$items$6$volu === void 0 ? void 0 : (_details$items$6$volu2 = _details$items$6$volu.imageLinks) === null || _details$items$6$volu2 === void 0 ? void 0 : _details$items$6$volu2.smallThumbnail;
         var isbn = details.isbnSearch;
@@ -31690,7 +31841,9 @@ function (_React$Component) {
       }, "breadcrumb..."), _react.default.createElement("div", {
         className: "section-content"
       }, _react.default.createElement("ul", null, this.state.bookList.map(function (b) {
-        return _react.default.createElement("li", null, b.title, _react.default.createElement("br", null), b.subtitle, _react.default.createElement("br", null), b.author, _react.default.createElement("br", null), b.isbn);
+        return _react.default.createElement(_BookListItem.default, _extends({
+          key: b.uid
+        }, b));
       }))), _react.default.createElement("div", {
         className: "section-footer",
         style: {
@@ -31719,7 +31872,7 @@ function (_React$Component) {
 var mainNode = document.querySelector("#app");
 
 _reactDom.default.render(_react.default.createElement(App, null), mainNode);
-},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./components/BookDialog":"src/components/BookDialog.jsx","./util/VideoHelper":"src/util/VideoHelper.js"}],"../../../.nvm/versions/node/v10.7.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./components/BookListItem":"src/components/BookListItem.jsx","./components/BookDialog":"src/components/BookDialog.jsx","./util/BookListManager":"src/util/BookListManager.js","./util/VideoHelper":"src/util/VideoHelper.js"}],"../../../.nvm/versions/node/v10.7.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -31747,7 +31900,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42991" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "41511" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
