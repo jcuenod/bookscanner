@@ -67,7 +67,7 @@ class App extends React.Component{
 					SCAN
 				</div>
 			</div>
-			<video id="video" className={this.state.showVideoOverlay ? "show" : ""} />
+			<video id="video" style={{pointerEvents: (this.state.showVideoOverlay ? "auto" : "none")}} className={this.state.showVideoOverlay ? "show" : ""} />
 			<BookDialog
 				addBookHandler={this.addBookHandler.bind(this)}
 				visible={this.state.showBookDialog}

@@ -48,7 +48,7 @@ const DetailDisplay = ({ addBookHandler, title, subtitle, author, date, publishe
 )
 
 const BookDialog = ({visible, bookDetails, addBookHandler}) => (
-	<div style={overlayStyles} className={visible ? "show" : ""}>
+	<div style={{...overlayStyles, pointerEvents: (visible ? "auto" : "none") }} className={visible ? "show" : ""}>
 		<DetailDisplay {...bookDetails} addBookHandler={addBookHandler} />
 	</div>
 )
