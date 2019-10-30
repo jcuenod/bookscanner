@@ -12,7 +12,7 @@ const BookListItem = ({ title, subtitle, authors, publisher, date, sent, imgSrc,
 				{title}
 			</div>
 			<p>{subtitle}</p>
-			<p>{authors.join(", ")}</p>
+			<p>{(authors || []).join(", ")}</p>
 			<p>{[publisher, date].join(", ")}</p>
 		</div>
 		<div style={{ width: "56px" }}>
