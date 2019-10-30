@@ -39,7 +39,6 @@ class App extends React.Component {
 		})
 	}
 	addBookHandler() {
-		const { title, subtitle, authors, isbn } = this.state.bookDetails
 		BookListManager.add(this.state.bookDetails)
 		this.setState({ showBookDialog: false })
 	}
@@ -70,7 +69,7 @@ class App extends React.Component {
 		if (details.totalItems > 0) {
 			const title = details.items[0] ?.volumeInfo ?.title
 			const subtitle = details.items[0] ?.volumeInfo ?.subtitle
-			const authors = details.items[0] ?.volumeInfo ?.authors
+			const authors = details.items[0] ?.volumeInfo ?.authors || []
 			const date = details.items[0] ?.volumeInfo ?.publishedDate.replace(/(.*)(\d{4})(.*)/, '$2')
 			const publisher = details.items[0] ?.volumeInfo ?.publisher
 			const imgSrc = details.items[0] ?.volumeInfo ?.imageLinks ?.smallThumbnail
