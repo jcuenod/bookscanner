@@ -21,6 +21,8 @@ const colors = {
 	darkNeutral: "#2E3640"
 }
 
+import bookVector from '/assets/books.svg'
+import { callbackify } from 'util'
 const settingsIcon = <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96"><path d="M48 34c-8 0-14 6-14 14a14 14 0 1014-14zm0 23a9 9 0 010-18 9 9 0 010 18z" fill="currentColor" /><path d="M54 89H43c-5 0-8-3-8-7v-2l-2 1a7 7 0 01-10 0l-8-8c-2-3-2-7 0-10l2-2h-2c-5 0-8-3-8-7V43c0-4 4-8 8-8h2l-2-1c-2-3-2-8 0-10l8-8a7 7 0 0110 0l2 1v-2c0-4 4-8 8-8h11c2 0 4 1 5 3l2 5v2l2-1a7 7 0 0110 0l8 8a7 7 0 010 10l-2 1h3c2 0 4 1 5 3l2 5v11c0 4-3 7-7 7h-3l2 2c3 3 3 8 0 10l-8 8a7 7 0 01-10 0l-2-2v3c0 4-3 7-7 7zM34 72l2 1 3 2h2v7l2 1h11l1-1v-7l2-1 3-1 2-1 5 5h2l8-8v-2l-5-5 1-2 1-3 1-2h7l1-1V43l-1-2h-7l-1-2-1-3-1-2 5-5v-1l-8-8h-1-1l-5 5-2-1-3-2-2-1v-6l-1-2H43l-2 2v6l-2 1-4 1-1 1-5-4h-1l-8 8v2l4 4-1 2-1 3-1 2h-6l-2 2v11l2 1h6l1 2 1 4 1 2-4 4v2l8 8h1z" fill="currentColor" /></svg>
 
 let observer_id = -1
@@ -90,15 +92,25 @@ class App extends React.Component {
 					<h1 style={{ color: colors.darkNeutral }}>ZBOOKScanner</h1>
 				</div>
 				<div className="section-content">
-					<ul className="bookList">
-						{this.state.bookList.map(b =>
-							<BookListItem key={b.uid} {...b}
-								onDelete={() => this.removeBookHandler(b.uid)}
-								onSend={() => this.sendToZotero(b.uid)} />)
-						}
-					</ul>
+					{this.state.bookList.length > 0 ?
+						<ul className="bookList">
+							{this.state.bookList.map(b =>
+								<BookListItem key={b.uid} {...b}
+									onDelete={() => this.removeBookHandler(b.uid)}
+									onSend={() => this.sendToZotero(b.uid)} />)
+							}
+						</ul> :
+						<div style={{
+							background: `url(${bookVector}) no-repeat center center`,
+							backgroundSize: "contain",
+							width: "100%",
+							height: "70vh",
+							maxHeight: "calc(100vh - 13em)"
+						}} />
+					}
 				</div>
 				<div className="section-footer">
+					<div />
 					<div>
 						<div className="button" onClick={this.scanClickHandler.bind(this)}>
 							SCAN
@@ -119,7 +131,7 @@ class App extends React.Component {
 					closeDialog={this.hideSettingsDialog.bind(this)}
 					visible={this.state.showSettingsDialog} />
 
-			</div>)
+			</div >)
 	}
 }
 
