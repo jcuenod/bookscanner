@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "parcel ./index.html --https --public-url '/bookscanner'",
+    "build": "parcel build ./index.html --public-url '/bookscanner'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

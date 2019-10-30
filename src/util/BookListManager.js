@@ -27,7 +27,13 @@ const BookListManager = {
 	},
 	remove: uid => {
 		const doomedId = _bookList.findIndex(b => b.uid === uid)
-		_bookList = _bookList.splice(doomedId, 1)
+		_bookList.splice(doomedId, 1)
+		save()
+		notifyObservers()
+	},
+	markAsSent: uid => {
+		const sentId = _bookList.findIndex(b => b.uid === uid)
+		_bookList[sentId]["sent"] = true
 		save()
 		notifyObservers()
 	},

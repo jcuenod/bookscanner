@@ -49,7 +49,6 @@ const scanItem = async (callback) => {
 	bookData.isbnSearch = result.text
 	callback(bookData)
 	barcodeReader.reset()
-	barcodeReader.stop()
 	// .catch(err => {
 	// 	console.error(err)
 	// })
