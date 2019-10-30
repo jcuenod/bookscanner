@@ -1,8 +1,9 @@
-*{
+* {
 	box-sizing: border-box;
 	padding: 0;
 	margin: 0;
 }
+
 html {
 	background: #E0E5EC;
 	overflow: hidden;
@@ -17,7 +18,7 @@ html {
 }
 
 .section-header,
-.section-breadcrumb, 
+.section-breadcrumb,
 .section-content,
 .section-footer {
 	padding: 1em;
@@ -29,18 +30,33 @@ html {
 	top: 0;
 	background: #B2B9C9;
 }
+
 .section-breadcrumb {
 	position: sticky;
 	top: 0;
 	background: #B8C9D5;
 }
+
 .section-content {
 	/*flex: 1 1 auto;*/
 }
+
 .section-footer {
-	position: sticky;
+	position: fixed;
 	bottom: 0;
-	background: linear-gradient(0deg, rgba(224,229,236,1) 20%, rgba(224,229,236,0.6) 90%, rgba(224,229,236,0) 100%);
+	width: 100%;
+	background: linear-gradient(0deg, rgba(224, 229, 236, 1) 20%, rgba(224, 229, 236, 0.6) 90%, rgba(224, 229, 236, 0) 100%);
+	display: flex;
+	align-items: center;
+}
+
+.section-footer>div {
+	flex: 1 0;
+	text-align: center;
+}
+
+.section-footer>div:last-child {
+	flex: 0 0;
 }
 
 .button,
@@ -56,14 +72,16 @@ html {
 	font-weight: bold;
 	font-size: 200%;
 	user-select: none;
-	box-shadow: inset 0 -0.6em 0 -0.45em rgba(0,0,0,0.17);
+	box-shadow: inset 0 -0.6em 0 -0.45em rgba(0, 0, 0, 0.17);
 	position: relative;
 }
+
 .button:hover,
 .button:active {
 	background: #2A45AE;
 	color: #FFFFFF;
 }
+
 .button:active {
 	top: 0.1em;
 }
@@ -80,6 +98,7 @@ video {
 	background: #000;
 	pointer-events: none;
 }
+
 .show {
 	opacity: 1 !important;
 	transform: scale(1) !important;
@@ -89,15 +108,79 @@ video {
 .bookList {
 	border-spacing: 7px;
 }
+
 .bookListItem {
-	display:table-row;
+	display: table-row;
 }
-.bookListItem > div {
+
+.bookListItem>div {
 	display: table-cell;
+	vertical-align: top;
 }
-.bookListItem > div:first-child {
+
+.bookListItem>div:first-child {
 	width: 15%;
 	background-size: cover;
+}
+
+.deleteIcon,
+.sendIcon {
+	box-sizing: border-box;
+	background: #B2B9C9;
+	border-radius: 5%;
+	padding: 10% 12% 3% 12%;
+	cursor: pointer;
+	transition: border 200ms linear, background-color 200ms linear;
+}
+
+.deleteIcon:hover,
+.sendIcon:hover {
+	background: #B8C9D5;
+}
+
+.deleteIcon path {
+	color: #eb2121;
+}
+
+.sendIcon path {
+	color: #008;
+}
+
+.sendIcon.success {
+	border: 4px solid #080;
+	background-color: rgb(149, 202, 129);
+}
+
+.sendIcon.success:active,
+.sendIcon.success:hover {
+	border: 4px solid #1a1;
+}
+
+.sendIcon.success path {
+	color: #eee;
+}
+
+.settingsIcon {
+	border-radius: 50%;
+	background-color: #B8C9D5;
+	color: #3A55BE;
+	cursor: pointer;
+	width: 50px;
+	height: 50px;
+	padding: 4px;
+	transition: color 200ms linear, background-color 200ms linear;
+}
+
+.settingsIcon:active,
+.settingsIcon:hover {
+	color: #2A45AE;
+	background-color: #E0E5EC;
+}
+
+label {
+	display: block;
+	font-weight: bold;
+	margin-top: 5px;
 }
 
 /*# sourceMappingURL=/bookscanner/styles.0ad61341.css.map */

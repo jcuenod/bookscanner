@@ -31333,7 +31333,7 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"src/components/BookListItem.jsx":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"src/components/IconButton.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31343,15 +31343,69 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var IconButton = function IconButton(_ref) {
+  var onClick = _ref.onClick,
+      classes = _ref.classes,
+      icon = _ref.icon;
+  return _react.default.createElement("div", {
+    onClick: onClick,
+    className: classes.join(" ")
+  }, icon);
+};
+
+var _default = IconButton;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"src/components/BookListItem.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _IconButton = _interopRequireDefault(require("./IconButton"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+var trashIcon = _react.default.createElement("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 -256 96 96"
+}, _react.default.createElement("path", {
+  d: "M38-216v30h-6v-30-1l2-1h3l1 1v1zm13 0v30h-5-1v-30-1l1-1h4l1 1v1zm13 0v30h-5-1v-30-1l1-1h3l2 1v1zm6 36v-47H26v49l1 2h42l1-2v-2zm-33-54h22l-2-6H40h-1zm46 2v4l-1 1h-5v47q0 4-2 7-3 4-6 4H27q-3 0-6-3-2-3-2-8v-47h-5l-1-1v-4-1l1-1h16l3-8 3-3 4-2h16l4 2 3 3 3 8h16l1 1v1z",
+  fill: "currentColor"
+}));
+
+var sendIcon = _react.default.createElement("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 96 96"
+}, _react.default.createElement("path", {
+  d: "M50 50l-1-1h-2l-1 1-12 11a3 3 0 104 4l7-7v17a3 3 0 006 0V58l7 7a3 3 0 004 0v-4z",
+  fill: "currentColor"
+}), _react.default.createElement("path", {
+  d: "M71 37h-2a22 22 0 00-42 0h-2a14 14 0 000 29h2a3 3 0 000-5h-2a9 9 0 010-19l1 1v2a3 3 0 005 0v-4c2-8 9-14 17-14s15 6 17 14v4a3 3 0 005 0v-2l1-1a9 9 0 010 19h-2a3 3 0 000 5h2a14 14 0 000-29z",
+  fill: "currentColor"
+}));
 
 var BookListItem = function BookListItem(_ref) {
   var title = _ref.title,
       subtitle = _ref.subtitle,
-      author = _ref.author,
+      authors = _ref.authors,
       publisher = _ref.publisher,
       date = _ref.date,
-      imgSrc = _ref.imgSrc;
+      sent = _ref.sent,
+      imgSrc = _ref.imgSrc,
+      onDelete = _ref.onDelete,
+      onSend = _ref.onSend;
   return _react.default.createElement("div", {
     className: "bookListItem"
   }, _react.default.createElement("div", {
@@ -31363,12 +31417,28 @@ var BookListItem = function BookListItem(_ref) {
       fontFamily: "Roboto Condensed",
       fontWeight: "bold"
     }
-  }, title), _react.default.createElement("p", null, subtitle), _react.default.createElement("p", null, author), _react.default.createElement("p", null, [publisher, date].join(", "))));
+  }, title), _react.default.createElement("p", null, subtitle), _react.default.createElement("p", null, authors.join(", ")), _react.default.createElement("p", null, [publisher, date].join(", "))), _react.default.createElement("div", {
+    style: {
+      width: "56px"
+    }
+  }, _react.default.createElement(_IconButton.default, {
+    onClick: onDelete,
+    classes: ["deleteIcon"],
+    icon: trashIcon
+  })), _react.default.createElement("div", {
+    style: {
+      width: "56px"
+    }
+  }, _react.default.createElement(_IconButton.default, {
+    onClick: onSend,
+    classes: ["sendIcon"].concat(sent ? "success" : []),
+    icon: sendIcon
+  })));
 };
 
 var _default = BookListItem;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"src/components/BookDialog.jsx":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./IconButton":"src/components/IconButton.jsx"}],"src/components/BookDialog.jsx":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31378,7 +31448,9 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -31465,7 +31537,211 @@ var BookDialog = function BookDialog(_ref2) {
 
 var _default = BookDialog;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"src/util/BookListManager.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"src/util/SettingsManager.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var allowed_keys = ["api_key", "user_id", "default_collection"];
+
+var validateKey = function validateKey(key) {
+  if (!allowed_keys.includes(key)) {
+    throw "You are trying to look up a key that ZBookScanner does not expect to exist";
+  }
+};
+
+var SettingsManager = {
+  get: function get(key) {
+    validateKey(key);
+    var settings = JSON.parse(localStorage.getItem("settings"));
+    return (settings === null || settings === void 0 ? void 0 : settings[key]) || "";
+  },
+  getAll: function getAll() {
+    return JSON.parse(localStorage.getItem("settings")) || {
+      user_id: "",
+      api_key: "",
+      default_collection: ""
+    };
+  },
+  set: function set(key, value) {
+    validateKey(key);
+    var settings = JSON.parse(localStorage.getItem("settings")) || {};
+    settings[key] = value;
+    localStorage.setItem("settings", JSON.stringify(settings));
+  }
+};
+var _default = SettingsManager;
+exports.default = _default;
+},{}],"src/components/SettingsDialog.jsx":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _SettingsManager = _interopRequireDefault(require("../util/SettingsManager"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var overlayStyles = {
+  position: "fixed",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+  background: "rgba(255,255,255,0.6)",
+  opacity: 0,
+  transform: "scale(0.7)",
+  transition: "opacity 300ms linear, transform 300ms linear"
+};
+var dialogStyles = {
+  position: "absolute",
+  top: "10%",
+  left: "5%",
+  bottom: "5%",
+  right: "10%",
+  borderRadius: "10px",
+  background: "#B8C9D5"
+};
+var flexStyles = {
+  position: "absolute",
+  left: 0,
+  width: "100%",
+  padding: "1em"
+};
+
+var saveSettings = function saveSettings(_ref) {
+  var userId = _ref.userId,
+      apiKey = _ref.apiKey,
+      defaultCollection = _ref.defaultCollection,
+      closeDialog = _ref.closeDialog;
+
+  _SettingsManager.default.set("default_collection", defaultCollection);
+
+  _SettingsManager.default.set("user_id", userId);
+
+  _SettingsManager.default.set("api_key", apiKey);
+
+  closeDialog();
+};
+
+var Dialog = function Dialog(_ref2) {
+  var closeDialog = _ref2.closeDialog;
+
+  var _SettingsManager$getA = _SettingsManager.default.getAll(),
+      api_key = _SettingsManager$getA.api_key,
+      user_id = _SettingsManager$getA.user_id,
+      default_collection = _SettingsManager$getA.default_collection;
+
+  var _useState = (0, _react.useState)(""),
+      _useState2 = _slicedToArray(_useState, 2),
+      defaultCollection = _useState2[0],
+      setDefaultCollection = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(""),
+      _useState4 = _slicedToArray(_useState3, 2),
+      userId = _useState4[0],
+      setUserId = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(""),
+      _useState6 = _slicedToArray(_useState5, 2),
+      apiKey = _useState6[0],
+      setApiKey = _useState6[1];
+
+  return _react.default.createElement("div", {
+    style: dialogStyles
+  }, _react.default.createElement("div", {
+    style: _objectSpread({}, flexStyles, {
+      marginBottom: "6em"
+    })
+  }, _react.default.createElement("div", {
+    style: {
+      overflow: "scroll-y"
+    }
+  }, _react.default.createElement("h1", null, "Please enter your settings below:"), _react.default.createElement("label", {
+    htmlFor: "api_key"
+  }, "Default Collection"), _react.default.createElement("input", {
+    name: "api_key",
+    type: "text",
+    placeholder: default_collection || "ZBookScanner",
+    onInput: function onInput(e) {
+      return setDefaultCollection(e.target.value);
+    }
+  }), _react.default.createElement("label", {
+    htmlFor: "user_id"
+  }, "User ID"), _react.default.createElement("input", {
+    name: "user_id",
+    type: "text",
+    placeholder: user_id || "9130595",
+    onInput: function onInput(e) {
+      return setUserId(e.target.value);
+    }
+  }), _react.default.createElement("br", null), _react.default.createElement("label", {
+    htmlFor: "api_key"
+  }, "API Key"), _react.default.createElement("input", {
+    name: "api_key",
+    type: "text",
+    placeholder: api_key || "P9NiFoyLeZu2bZNvvuQPDWsd",
+    onInput: function onInput(e) {
+      return setApiKey(e.target.value);
+    }
+  }))), _react.default.createElement("div", {
+    style: _objectSpread({}, flexStyles, {
+      textAlign: "center",
+      bottom: 0
+    })
+  }, _react.default.createElement("div", {
+    className: "button",
+    onClick: function onClick() {
+      return saveSettings({
+        userId: userId,
+        apiKey: apiKey,
+        defaultCollection: defaultCollection,
+        closeDialog: closeDialog
+      });
+    }
+  }, "SAVE")));
+};
+
+var SettingsDialog = function SettingsDialog(_ref3) {
+  var visible = _ref3.visible,
+      closeDialog = _ref3.closeDialog;
+  return _react.default.createElement("div", {
+    style: _objectSpread({}, overlayStyles, {
+      pointerEvents: visible ? "auto" : "none"
+    }),
+    className: visible ? "show" : ""
+  }, _react.default.createElement(Dialog, {
+    closeDialog: closeDialog
+  }));
+};
+
+var _default = SettingsDialog;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../util/SettingsManager":"src/util/SettingsManager.js"}],"src/util/BookListManager.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31521,7 +31797,17 @@ var BookListManager = {
       return b.uid === uid;
     });
 
-    _bookList = _bookList.splice(doomedId, 1);
+    _bookList.splice(doomedId, 1);
+
+    save();
+    notifyObservers();
+  },
+  markAsSent: function markAsSent(uid) {
+    var sentId = _bookList.findIndex(function (b) {
+      return b.uid === uid;
+    });
+
+    _bookList[sentId]["sent"] = true;
     save();
     notifyObservers();
   },
@@ -31659,12 +31945,11 @@ function () {
             bookData = _context2.sent;
             bookData.isbnSearch = result.text;
             callback(bookData);
-            barcodeReader.reset();
-            barcodeReader.stop(); // .catch(err => {
+            barcodeReader.reset(); // .catch(err => {
             // 	console.error(err)
             // })
 
-          case 19:
+          case 18:
           case "end":
             return _context2.stop();
         }
@@ -31684,7 +31969,248 @@ var VideoHelper = {
 };
 var _default = VideoHelper;
 exports.default = _default;
-},{}],"src/main.js":[function(require,module,exports) {
+},{}],"src/util/ZoteroBookItemTemplate.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _default = function _default(_ref) {
+  var title = _ref.title,
+      authors = _ref.authors,
+      publisher = _ref.publisher,
+      date = _ref.date,
+      collectionKey = _ref.collectionKey;
+  return [{
+    "itemType": "book",
+    title: title,
+    "creators": authors.map(function (author) {
+      return {
+        "creatorType": "author",
+        "name": author
+      };
+    }),
+    "abstractNote": "entry created by zbookscanner",
+    publisher: publisher,
+    date: date,
+    "tags": [],
+    "collections": [collectionKey],
+    "relations": {}
+  }];
+};
+
+exports.default = _default;
+},{}],"src/util/SendToZotero.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.checkForConfig = exports.sendBookToZotero = void 0;
+
+var _ZoteroBookItemTemplate = _interopRequireDefault(require("./ZoteroBookItemTemplate"));
+
+var _SettingsManager = _interopRequireDefault(require("./SettingsManager"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+var API_KEY = "api_key";
+var USER_ID = "user_id";
+var COLLECTION_NAME = "default_collection";
+
+var config = function config(key) {
+  var value = _SettingsManager.default.get(key);
+
+  if (key === COLLECTION_NAME && !value) return "ZBookScanner";
+  return value;
+};
+
+var findOrCreateCollection =
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee(collectionName) {
+    var url, responseObject, response, collectionMap, matchingCollection;
+    return regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            url = "https://api.zotero.org/users/".concat(config(USER_ID), "/collections/top");
+            _context.next = 3;
+            return fetch(url, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer ".concat(config(API_KEY))
+              }
+            });
+
+          case 3:
+            responseObject = _context.sent;
+            _context.next = 6;
+            return responseObject.json();
+
+          case 6:
+            response = _context.sent;
+            collectionMap = Object.keys(response).map(function (k) {
+              var _response$k, _response$k$data;
+
+              return {
+                key: response[k].key,
+                collectionName: (_response$k = response[k]) === null || _response$k === void 0 ? void 0 : (_response$k$data = _response$k.data) === null || _response$k$data === void 0 ? void 0 : _response$k$data.name
+              };
+            });
+            matchingCollection = collectionMap.find(function (c) {
+              return c.collectionName === collectionName;
+            });
+
+            if (!matchingCollection) {
+              _context.next = 11;
+              break;
+            }
+
+            return _context.abrupt("return", matchingCollection.key);
+
+          case 11:
+            return _context.abrupt("return", createCollectionAndReturnKey(collectionName));
+
+          case 12:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function findOrCreateCollection(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var createCollectionAndReturnKey =
+/*#__PURE__*/
+function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee2(collectionName) {
+    var url, responseObject, response;
+    return regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            // CREATE COLLECTION IF IT DOES NOT EXIST
+            url = "https://api.zotero.org/users/".concat(config(USER_ID), "/collections");
+            _context2.next = 3;
+            return fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer ".concat(config(API_KEY))
+              },
+              body: JSON.stringify([{
+                "name": collectionName //"ZBookScanner"
+
+              }])
+            });
+
+          case 3:
+            responseObject = _context2.sent;
+            _context2.next = 6;
+            return responseObject.json();
+
+          case 6:
+            response = _context2.sent;
+            return _context2.abrupt("return", response.success[0]);
+
+          case 8:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function createCollectionAndReturnKey(_x2) {
+    return _ref2.apply(this, arguments);
+  };
+}();
+
+var sendBookToZotero =
+/*#__PURE__*/
+function () {
+  var _ref4 = _asyncToGenerator(
+  /*#__PURE__*/
+  regeneratorRuntime.mark(function _callee3(_ref3) {
+    var title, authors, publisher, date, collectionKey, zoteroBookItem, url, responseObject, response;
+    return regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            title = _ref3.title, authors = _ref3.authors, publisher = _ref3.publisher, date = _ref3.date;
+            _context3.next = 3;
+            return findOrCreateCollection(config(COLLECTION_NAME));
+
+          case 3:
+            collectionKey = _context3.sent;
+            zoteroBookItem = (0, _ZoteroBookItemTemplate.default)({
+              title: title,
+              authors: authors,
+              publisher: publisher,
+              date: date,
+              collectionKey: collectionKey
+            });
+            url = "https://api.zotero.org/users/".concat(config(USER_ID), "/items");
+            _context3.next = 8;
+            return fetch(url, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer ".concat(config(API_KEY))
+              },
+              body: JSON.stringify(zoteroBookItem)
+            });
+
+          case 8:
+            responseObject = _context3.sent;
+            _context3.next = 11;
+            return responseObject.json();
+
+          case 11:
+            response = _context3.sent;
+            return _context3.abrupt("return", Object.keys(response.failed).length === 0);
+
+          case 13:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3);
+  }));
+
+  return function sendBookToZotero(_x3) {
+    return _ref4.apply(this, arguments);
+  };
+}();
+
+exports.sendBookToZotero = sendBookToZotero;
+
+var checkForConfig = function checkForConfig() {
+  var _SettingsManager$getA = _SettingsManager.default.getAll(),
+      user_id = _SettingsManager$getA.user_id,
+      api_key = _SettingsManager$getA.api_key;
+
+  return !!(user_id && api_key);
+};
+
+exports.checkForConfig = checkForConfig;
+},{"./ZoteroBookItemTemplate":"src/util/ZoteroBookItemTemplate.js","./SettingsManager":"src/util/SettingsManager.js"}],"src/main.js":[function(require,module,exports) {
 "use strict";
 
 require("regenerator-runtime/runtime");
@@ -31697,17 +32223,29 @@ var _BookListItem = _interopRequireDefault(require("./components/BookListItem"))
 
 var _BookDialog = _interopRequireDefault(require("./components/BookDialog"));
 
+var _SettingsDialog = _interopRequireDefault(require("./components/SettingsDialog"));
+
+var _IconButton = _interopRequireDefault(require("./components/IconButton"));
+
 var _BookListManager = _interopRequireDefault(require("./util/BookListManager"));
 
 var _VideoHelper = _interopRequireDefault(require("./util/VideoHelper"));
 
+var _SendToZotero = require("./util/SendToZotero");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; if (obj != null) { var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -31725,6 +32263,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var COLLECTION_NAME = "ZBookScanner";
 var colors = {
   lightNeutral: "#E0E5EC",
   lighterNeutral: "#B8C9D5",
@@ -31732,6 +32271,18 @@ var colors = {
   accent: "#3A55BE",
   darkNeutral: "#2E3640"
 };
+
+var settingsIcon = _react.default.createElement("svg", {
+  xmlns: "http://www.w3.org/2000/svg",
+  viewBox: "0 0 96 96"
+}, _react.default.createElement("path", {
+  d: "M48 34c-8 0-14 6-14 14a14 14 0 1014-14zm0 23a9 9 0 010-18 9 9 0 010 18z",
+  fill: "currentColor"
+}), _react.default.createElement("path", {
+  d: "M54 89H43c-5 0-8-3-8-7v-2l-2 1a7 7 0 01-10 0l-8-8c-2-3-2-7 0-10l2-2h-2c-5 0-8-3-8-7V43c0-4 4-8 8-8h2l-2-1c-2-3-2-8 0-10l8-8a7 7 0 0110 0l2 1v-2c0-4 4-8 8-8h11c2 0 4 1 5 3l2 5v2l2-1a7 7 0 0110 0l8 8a7 7 0 010 10l-2 1h3c2 0 4 1 5 3l2 5v11c0 4-3 7-7 7h-3l2 2c3 3 3 8 0 10l-8 8a7 7 0 01-10 0l-2-2v3c0 4-3 7-7 7zM34 72l2 1 3 2h2v7l2 1h11l1-1v-7l2-1 3-1 2-1 5 5h2l8-8v-2l-5-5 1-2 1-3 1-2h7l1-1V43l-1-2h-7l-1-2-1-3-1-2 5-5v-1l-8-8h-1-1l-5 5-2-1-3-2-2-1v-6l-1-2H43l-2 2v6l-2 1-4 1-1 1-5-4h-1l-8 8v2l4 4-1 2-1 3-1 2h-6l-2 2v11l2 1h6l1 2 1 4 1 2-4 4v2l8 8h1z",
+  fill: "currentColor"
+}));
+
 var observer_id = -1;
 
 var App =
@@ -31748,6 +32299,7 @@ function (_React$Component) {
     _this.state = {
       showVideoOverlay: false,
       showBookDialog: false,
+      showSettingsDialog: false,
       bookDetails: {},
       bookList: _BookListManager.default.getAll()
     };
@@ -31765,7 +32317,7 @@ function (_React$Component) {
       var _this$state$bookDetai = this.state.bookDetails,
           title = _this$state$bookDetai.title,
           subtitle = _this$state$bookDetai.subtitle,
-          author = _this$state$bookDetai.author,
+          authors = _this$state$bookDetai.authors,
           isbn = _this$state$bookDetai.isbn;
 
       _BookListManager.default.add(this.state.bookDetails);
@@ -31774,6 +32326,56 @@ function (_React$Component) {
         showBookDialog: false
       });
     }
+  }, {
+    key: "removeBookHandler",
+    value: function removeBookHandler(uid) {
+      _BookListManager.default.remove(uid);
+    }
+  }, {
+    key: "sendToZotero",
+    value: function () {
+      var _sendToZotero = _asyncToGenerator(
+      /*#__PURE__*/
+      regeneratorRuntime.mark(function _callee(uid) {
+        var _BookListManager$get, title, authors, publisher, date, success;
+
+        return regeneratorRuntime.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _BookListManager$get = _BookListManager.default.get(uid), title = _BookListManager$get.title, authors = _BookListManager$get.authors, publisher = _BookListManager$get.publisher, date = _BookListManager$get.date;
+
+                if ((0, _SendToZotero.checkForConfig)()) {
+                  success = (0, _SendToZotero.sendBookToZotero)({
+                    title: title,
+                    authors: authors,
+                    publisher: publisher,
+                    date: date
+                  });
+
+                  if (success) {
+                    _BookListManager.default.markAsSent(uid);
+                  } else {
+                    alert("Failed to send to zotero for some reason...");
+                  }
+                } else {
+                  alert("You must set a user ID and an API key to send a book to you Zotero library.");
+                }
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }));
+
+      function sendToZotero(_x) {
+        return _sendToZotero.apply(this, arguments);
+      }
+
+      return sendToZotero;
+    }()
   }, {
     key: "scanClickHandler",
     value: function scanClickHandler() {
@@ -31793,7 +32395,7 @@ function (_React$Component) {
 
         var title = (_details$items$ = details.items[0]) === null || _details$items$ === void 0 ? void 0 : (_details$items$$volum = _details$items$.volumeInfo) === null || _details$items$$volum === void 0 ? void 0 : _details$items$$volum.title;
         var subtitle = (_details$items$2 = details.items[0]) === null || _details$items$2 === void 0 ? void 0 : (_details$items$2$volu = _details$items$2.volumeInfo) === null || _details$items$2$volu === void 0 ? void 0 : _details$items$2$volu.subtitle;
-        var author = (_details$items$3 = details.items[0]) === null || _details$items$3 === void 0 ? void 0 : (_details$items$3$volu = _details$items$3.volumeInfo) === null || _details$items$3$volu === void 0 ? void 0 : _details$items$3$volu.authors.join(", ");
+        var authors = (_details$items$3 = details.items[0]) === null || _details$items$3 === void 0 ? void 0 : (_details$items$3$volu = _details$items$3.volumeInfo) === null || _details$items$3$volu === void 0 ? void 0 : _details$items$3$volu.authors;
         var date = (_details$items$4 = details.items[0]) === null || _details$items$4 === void 0 ? void 0 : (_details$items$4$volu = _details$items$4.volumeInfo) === null || _details$items$4$volu === void 0 ? void 0 : _details$items$4$volu.publishedDate.replace(/(.*)(\d{4})(.*)/, '$2');
         var publisher = (_details$items$5 = details.items[0]) === null || _details$items$5 === void 0 ? void 0 : (_details$items$5$volu = _details$items$5.volumeInfo) === null || _details$items$5$volu === void 0 ? void 0 : _details$items$5$volu.publisher;
         var imgSrc = (_details$items$6 = details.items[0]) === null || _details$items$6 === void 0 ? void 0 : (_details$items$6$volu = _details$items$6.volumeInfo) === null || _details$items$6$volu === void 0 ? void 0 : (_details$items$6$volu2 = _details$items$6$volu.imageLinks) === null || _details$items$6$volu2 === void 0 ? void 0 : _details$items$6$volu2.smallThumbnail;
@@ -31801,7 +32403,7 @@ function (_React$Component) {
         bookDetails = {
           title: title,
           subtitle: subtitle,
-          author: author,
+          authors: authors,
           date: date,
           publisher: publisher,
           imgSrc: imgSrc,
@@ -31816,8 +32418,17 @@ function (_React$Component) {
       });
     }
   }, {
+    key: "hideSettingsDialog",
+    value: function hideSettingsDialog() {
+      this.setState({
+        showSettingsDialog: false
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return _react.default.createElement("div", {
         className: "app-wrapper"
       }, _react.default.createElement("div", {
@@ -31827,24 +32438,34 @@ function (_React$Component) {
           color: colors.darkNeutral
         }
       }, "ZBOOKScanner")), _react.default.createElement("div", {
-        className: "section-breadcrumb"
-      }, "breadcrumb..."), _react.default.createElement("div", {
         className: "section-content"
       }, _react.default.createElement("ul", {
         className: "bookList"
       }, this.state.bookList.map(function (b) {
         return _react.default.createElement(_BookListItem.default, _extends({
           key: b.uid
-        }, b));
+        }, b, {
+          onDelete: function onDelete() {
+            return _this2.removeBookHandler(b.uid);
+          },
+          onSend: function onSend() {
+            return _this2.sendToZotero(b.uid);
+          }
+        }));
       }))), _react.default.createElement("div", {
-        className: "section-footer",
-        style: {
-          textAlign: "center"
-        }
-      }, _react.default.createElement("div", {
+        className: "section-footer"
+      }, _react.default.createElement("div", null, _react.default.createElement("div", {
         className: "button",
         onClick: this.scanClickHandler.bind(this)
-      }, "SCAN")), _react.default.createElement("video", {
+      }, "SCAN")), _react.default.createElement("div", null, _react.default.createElement(_IconButton.default, {
+        onClick: function onClick() {
+          _this2.setState({
+            showSettingsDialog: true
+          });
+        },
+        classes: ["settingsIcon"],
+        icon: settingsIcon
+      }))), _react.default.createElement("video", {
         id: "video",
         style: {
           pointerEvents: this.state.showVideoOverlay ? "auto" : "none"
@@ -31854,6 +32475,9 @@ function (_React$Component) {
         addBookHandler: this.addBookHandler.bind(this),
         visible: this.state.showBookDialog,
         bookDetails: this.state.bookDetails
+      }), _react.default.createElement(_SettingsDialog.default, {
+        closeDialog: this.hideSettingsDialog.bind(this),
+        visible: this.state.showSettingsDialog
       }));
     }
   }]);
@@ -31864,7 +32488,7 @@ function (_React$Component) {
 var mainNode = document.querySelector("#app");
 
 _reactDom.default.render(_react.default.createElement(App, null), mainNode);
-},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./components/BookListItem":"src/components/BookListItem.jsx","./components/BookDialog":"src/components/BookDialog.jsx","./util/BookListManager":"src/util/BookListManager.js","./util/VideoHelper":"src/util/VideoHelper.js"}],"../../../.nvm/versions/node/v10.7.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","react":"node_modules/react/index.js","react-dom":"node_modules/react-dom/index.js","./components/BookListItem":"src/components/BookListItem.jsx","./components/BookDialog":"src/components/BookDialog.jsx","./components/SettingsDialog":"src/components/SettingsDialog.jsx","./components/IconButton":"src/components/IconButton.jsx","./util/BookListManager":"src/util/BookListManager.js","./util/VideoHelper":"src/util/VideoHelper.js","./util/SendToZotero":"src/util/SendToZotero.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -31892,7 +32516,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "45043" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "42121" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -32067,5 +32691,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../../.nvm/versions/node/v10.7.0/lib/node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/main.js"], null)
+},{}]},{},["node_modules/parcel-bundler/src/builtins/hmr-runtime.js","src/main.js"], null)
 //# sourceMappingURL=/bookscanner/main.1e43358e.js.map
