@@ -6,12 +6,11 @@
 
 html {
 	background: #E0E5EC;
-	overflow: hidden;
 	font-family: Roboto;
 }
 
 .app-wrapper {
-	position: absolute;
+	position: relative;
 	width: 100%;
 	height: 100%;
 	overflow-y: auto;
@@ -39,6 +38,7 @@ html {
 
 .section-content {
 	/*flex: 1 1 auto;*/
+	margin-bottom: 5em;
 }
 
 .section-footer {
@@ -51,12 +51,12 @@ html {
 }
 
 .section-footer>div {
-	flex: 1 0;
-	text-align: center;
+	flex: 0 0 50px;
 }
 
-.section-footer>div:last-child {
-	flex: 0 0;
+.section-footer>div:nth-child(2) {
+	flex: 1 0 auto;
+	text-align: center;
 }
 
 .button,
@@ -162,7 +162,7 @@ video {
 
 .settingsIcon {
 	border-radius: 50%;
-	background-color: #B8C9D5;
+	background-color: #E0E5EC;
 	color: #3A55BE;
 	cursor: pointer;
 	width: 50px;
@@ -174,7 +174,7 @@ video {
 .settingsIcon:active,
 .settingsIcon:hover {
 	color: #2A45AE;
-	background-color: #E0E5EC;
+	background-color: #B8C9D5;
 }
 
 label {
