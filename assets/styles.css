@@ -38,6 +38,7 @@ html {
 
 .section-content {
 	/*flex: 1 1 auto;*/
+	margin-bottom: 5em;
 }
 
 .section-footer {
