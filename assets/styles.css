@@ -51,12 +51,12 @@ html {
 }
 
 .section-footer>div {
-	flex: 1 0;
-	text-align: center;
+	flex: 0 0 50px;
 }
 
-.section-footer>div:last-child {
-	flex: 0 0;
+.section-footer>div:nth-child(2) {
+	flex: 1 0 auto;
+	text-align: center;
 }
 
 .button,
