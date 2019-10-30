@@ -162,7 +162,7 @@ video {
 
 .settingsIcon {
 	border-radius: 50%;
-	background-color: #B8C9D5;
+	background-color: #E0E5EC;
 	color: #3A55BE;
 	cursor: pointer;
 	width: 50px;
@@ -174,7 +174,7 @@ video {
 .settingsIcon:active,
 .settingsIcon:hover {
 	color: #2A45AE;
-	background-color: #E0E5EC;
+	background-color: #B8C9D5;
 }
 
 label {
