@@ -27,14 +27,14 @@ const flexStyles = {
 	padding: "1em"
 }
 
-const DetailDisplay = ({ addBookHandler, title, subtitle, author, date, publisher, imgSrc }) => (
+const DetailDisplay = ({ addBookHandler, title, subtitle, authors, date, publisher, imgSrc }) => (
 	<div style={dialogStyles}>
 		<div style={{ ...flexStyles, marginBottom: "6em" }}>
-			<div style={{overflow: "scroll-y"}}>
+			<div style={{ overflow: "scroll-y" }}>
 				<h1>{title}</h1>
 				<p>{subtitle}</p>
-				<img src={imgSrc} style={{float: "left"}} />
-				<div>{author}</div>
+				<img src={imgSrc} style={{ float: "left" }} />
+				<div>{(authors || []).join(", ")}</div>
 				<div>{date}</div>
 				<div>{publisher}</div>
 			</div>
@@ -47,8 +47,8 @@ const DetailDisplay = ({ addBookHandler, title, subtitle, author, date, publishe
 	</div>
 )
 
-const BookDialog = ({visible, bookDetails, addBookHandler}) => (
-	<div style={{...overlayStyles, pointerEvents: (visible ? "auto" : "none") }} className={visible ? "show" : ""}>
+const BookDialog = ({ visible, bookDetails, addBookHandler }) => (
+	<div style={{ ...overlayStyles, pointerEvents: (visible ? "auto" : "none") }} className={visible ? "show" : ""}>
 		<DetailDisplay {...bookDetails} addBookHandler={addBookHandler} />
 	</div>
 )
