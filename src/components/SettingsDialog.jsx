@@ -1,71 +1,74 @@
-import React, { useState } from 'react'
+import React from 'react'
+
+import {
+	Dialog,
+	DialogTitle,
+	DialogContent,
+	DialogContentText,
+	DialogActions,
+	TextField,
+	Button,
+} from '@material-ui/core'
 
 import SettingsManager from '../util/SettingsManager'
 
-const overlayStyles = {
-	position: "fixed",
-	top: 0,
-	left: 0,
-	width: "100%",
-	height: "100%",
-	background: "rgba(255,255,255,0.6)",
-	opacity: 0,
-	transform: "scale(0.7)",
-	transition: "opacity 300ms linear, transform 300ms linear"
-}
-const dialogStyles = {
-	position: "absolute",
-	top: "10%",
-	left: "5%",
-	bottom: "5%",
-	right: "10%",
-	borderRadius: "10px",
-	background: "#B8C9D5",
-}
-const flexStyles = {
-	position: "absolute",
-	left: 0,
-	width: "100%",
-	padding: "1em"
-}
+const SettingsDialog = ({ open, handleClose }) => {
+	const [user_id, setUserId] = React.useState(SettingsManager.get(SettingsManager.USER_ID))
+	const [api_key, setApiKey] = React.useState(SettingsManager.get(SettingsManager.API_KEY))
+	const [default_collection, setDefaultCollection] = React.useState(SettingsManager.get(SettingsManager.DEFAULT_COLLECTION))
 
-const saveSettings = ({ userId, apiKey, defaultCollection, closeDialog }) => {
-	SettingsManager.set("default_collection", defaultCollection)
-	SettingsManager.set("user_id", userId)
-	SettingsManager.set("api_key", apiKey)
-	closeDialog()
-}
+	const save = () => {
+		if (user_id)
+			SettingsManager.set(SettingsManager.USER_ID, user_id)
+		if (api_key)
+			SettingsManager.set(SettingsManager.API_KEY, api_key)
+		if (default_collection)
+			SettingsManager.set(SettingsManager.DEFAULT_COLLECTION, default_collection)
+		handleClose()
+	}
 
-const Dialog = ({ closeDialog }) => {
-	const { api_key, user_id, default_collection } = SettingsManager.getAll()
-	const [defaultCollection, setDefaultCollection] = useState("")
-	const [userId, setUserId] = useState("")
-	const [apiKey, setApiKey] = useState("")
 	return (
-		<div style={dialogStyles}>
-			<div style={{ ...flexStyles, marginBottom: "6em" }}>
-				<div style={{ overflow: "scroll-y" }}>
-					<h1>Please enter your settings below:</h1>
-					<label htmlFor="api_key">Default Collection</label>
-					<input name="api_key" type="text" placeholder={default_collection || "ZBookScanner"} onInput={e => setDefaultCollection(e.target.value)}></input>
-					<label htmlFor="user_id">User ID</label>
-					<input name="user_id" type="text" placeholder={user_id || "9130595"} onInput={e => setUserId(e.target.value)} /><br />
-					<label htmlFor="api_key">API Key</label>
-					<input name="api_key" type="text" placeholder={api_key || "P9NiFoyLeZu2bZNvvuQPDWsd"} onInput={e => setApiKey(e.target.value)}></input>
-				</div>
-			</div>
-			<div style={{ ...flexStyles, textAlign: "center", bottom: 0 }}>
-				<div className="button" onClick={() => saveSettings({ userId, apiKey, defaultCollection, closeDialog })}>
-					SAVE
-				</div>
-			</div>
-		</div>
+		<Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
+			<DialogTitle id="form-dialog-title">Settings</DialogTitle>
+			<DialogContent>
+				<DialogContentText>
+					To connect to your Zotero account, please fill in an API key and a Username/ID.
+				</DialogContentText>
+				<TextField
+					margin="dense"
+					id="user_id"
+					label="Username"
+					type="text"
+					onChange={(e) => setUserId(e.target.value)}
+					fullWidth
+				/>
+				<TextField
+					margin="dense"
+					id="api_key"
+					label="API Key"
+					type="text"
+					onChange={(e) => setApiKey(e.target.value)}
+					fullWidth
+				/>
+				<TextField
+					margin="dense"
+					id="default_collection"
+					label="Default Collection"
+					type="text"
+					onChange={(e) => setDefaultCollection(e.target.value)}
+					placeholder={SettingsManager.get("default_collection")}
+					fullWidth
+				/>
+			</DialogContent>
+			<DialogActions>
+				<Button onClick={handleClose} color="default">
+					Cancel
+		  		</Button>
+				<Button onClick={save} color="primary">
+					Save
+				</Button>
+			</DialogActions>
+		</Dialog>
 	)
 }
-
-const SettingsDialog = ({ visible, closeDialog }) => (
-	<div style={{ ...overlayStyles, pointerEvents: (visible ? "auto" : "none") }} className={visible ? "show" : ""}>
-		<Dialog closeDialog={closeDialog} />
-	</div>
-)
 export default SettingsDialog

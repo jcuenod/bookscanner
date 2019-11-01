@@ -6,18 +6,25 @@ const validateKey = key => {
     }
 }
 
+const fetchAndParseSettings = () =>
+    JSON.parse(localStorage.getItem("settings")) || { user_id: "", api_key: "", default_collection: "zbookscanner" }
+
+
 const SettingsManager = {
+    API_KEY: "api_key",
+    USER_ID: "user_id",
+    DEFAULT_COLLECTION: "default_collection",
     get: key => {
         validateKey(key)
-        const settings = JSON.parse(localStorage.getItem("settings"))
-        return settings ?.[key] || ""
+        const settings = fetchAndParseSettings()
+        return settings ?.[key]
     },
     getAll: () => {
-        return JSON.parse(localStorage.getItem("settings")) || { user_id: "", api_key: "", default_collection: "" }
+        return fetchAndParseSettings()
     },
     set: (key, value) => {
         validateKey(key)
-        const settings = JSON.parse(localStorage.getItem("settings")) || {}
+        const settings = fetchAndParseSettings()
         settings[key] = value
         localStorage.setItem("settings", JSON.stringify(settings))
     }

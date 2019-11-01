@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "start": "parcel ./index.html --https --public-url '/bookscanner'",
-    "build": "parcel build ./index.html --public-url '/bookscanner'",
+    "build": "parcel build ./index.html --experimental-scope-hoisting --public-url '/bookscanner'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.5.2",
+    "@material-ui/icons": "^4.5.1",
     "@zxing/library": "^0.15.1",
     "react": "^16.9.0",
     "react-dom": "^16.9.0"
@@ -18,6 +20,6 @@
   "devDependencies": {
     "@babel/core": "^7.6.0",
     "@babel/plugin-proposal-optional-chaining": "^7.6.0",
-    "parcel-bundler": "^1.12.3"
+    "parcel-bundler": "^1.12.4"
   }
 }

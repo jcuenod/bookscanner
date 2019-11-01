@@ -1,39 +1,39 @@
-let _bookList = JSON.parse(localStorage.getItem("book_list")) || []
-let next_uid = Math.max(0, ..._bookList.map(b => b.uid)) + 1
+let _booklist = JSON.parse(localStorage.getItem("book_list")) || []
+let next_uid = Math.max(0, ..._booklist.map(b => b.uid)) + 1
 let next_oid = 0
 const _observers = []
 
 const save = () => {
-	localStorage.setItem("book_list", JSON.stringify(_bookList))
+	localStorage.setItem("booklist", JSON.stringify(_booklist))
 }
 const notifyObservers = () => {
 	_observers.forEach(o => {
-		o.callback(_bookList)
+		o.callback(_booklist)
 	})
 }
 
-const BookListManager = {
+const BooklistManager = {
 	get: uid => {
-		return _bookList.filter(b => b.uid === uid)[0] || null
+		return _booklist.filter(b => b.uid === uid)[0] || null
 	},
 	getAll: () => {
-		return _bookList
+		return _booklist
 	},
 	add: book => {
 		book.uid = next_uid++
-		_bookList.push(book)
+		_booklist.push(book)
 		save()
 		notifyObservers()
 	},
 	remove: uid => {
-		const doomedId = _bookList.findIndex(b => b.uid === uid)
-		_bookList.splice(doomedId, 1)
+		const doomedId = _booklist.findIndex(b => b.uid === uid)
+		_booklist.splice(doomedId, 1)
 		save()
 		notifyObservers()
 	},
 	markAsSent: uid => {
-		const sentId = _bookList.findIndex(b => b.uid === uid)
-		_bookList[sentId]["sent"] = true
+		const sentId = _booklist.findIndex(b => b.uid === uid)
+		_booklist[sentId]["sent"] = true
 		save()
 		notifyObservers()
 	},
@@ -48,4 +48,4 @@ const BookListManager = {
 		_observers.splice(doomedId, 1)
 	}
 }
-export default BookListManager
+export default BooklistManager
