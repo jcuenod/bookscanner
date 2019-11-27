@@ -1,3 +1,4 @@
+import * as ZXing from '@zxing/library'
 import BooklistManager from './BooklistManager'
 
 let selected_device_id = undefined
