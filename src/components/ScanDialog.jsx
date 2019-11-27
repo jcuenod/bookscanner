@@ -30,29 +30,20 @@ const Transition = React.forwardRef(function Transition(props, ref) {
 let scanning = false
 const ensureScanning = (handleClose) => {
 	if (!scanning) {
-		VideoHelper.scanItem(() => doScanWithClose(handleClose))
+		VideoHelper.scanItem(handleClose)
 		scanning = true
 	}
-}
-
-const doScan = () => {
-
-}
-const doScanWithClose = (handleClose) => {
-	doScan()
-	scanning = false
-	handleClose()
 }
 
 const ScanDialog = ({ open, handleClose }) => {
 	const classes = useStyles()
 	const closeDialog = () => {
-		VideoHelper.reset()
 		scanning = false
 		handleClose()
+		VideoHelper.reset()
 	}
 	if (open) {
-		ensureScanning(handleClose)
+		ensureScanning(closeDialog)
 	}
 	return (
 		<Dialog
