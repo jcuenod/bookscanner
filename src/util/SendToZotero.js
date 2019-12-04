@@ -1,19 +1,28 @@
 import generateTemplate from './ZoteroBookItemTemplate'
 import SettingsManager from './SettingsManager'
+const { API_KEY, USER_ID, DEFAULT_COLLECTION } = SettingsManager
 
-const API_KEY = "api_key"
-const USER_ID = "user_id"
-const COLLECTION_NAME = "default_collection"
-const config = (key) => {
+const config = key => {
     const value = SettingsManager.get(key)
-    if (key === COLLECTION_NAME && !value)
+    if (key === DEFAULT_COLLECTION && !value)
         return "ZBookScanner"
 
     return value
 }
 
+const getUserID = async () => {
+	if (config(USER_ID) && config(API_KEY) === localStorage.getItem("user_id_for")) {
+		return
+	}
+	const responseObject = await fetch(`https://api.zotero.org/keys/${config(API_KEY)}`)
+	const response = await responseObject.json()
+	SettingsManager.set(USER_ID, response.userID)
+	localStorage.setItem("user_id_for", config(API_KEY))
+}
+
 const findOrCreateCollection = async (collectionName) => {
     const url = `https://api.zotero.org/users/${config(USER_ID)}/collections/top`
+	console.log(config(API_KEY))
     const responseObject = await fetch(url, {
         method: 'GET',
         headers: {
@@ -23,10 +32,17 @@ const findOrCreateCollection = async (collectionName) => {
     })
     const response = await responseObject.json()
 
-    const collectionMap = Object.keys(response).map(k => ({
-        key: response[k].key,
-        collectionName: response[k] ?.data ?.name
-    }))
+    const collectionMap = Object.keys(response).map(k => {
+        const r = response[k]
+        let collectionName = null
+        if ("data" in r && "name" in r.data) {
+            collectionName = r.data.name
+        }
+        return {
+            key: r.key,
+            collectionName
+        }
+    })
     const matchingCollection = collectionMap.find(c => c.collectionName === collectionName)
     if (matchingCollection) {
         return matchingCollection.key
@@ -54,7 +70,8 @@ const createCollectionAndReturnKey = async (collectionName) => {
 }
 
 const sendBookToZotero = async ({ title, authors, publisher, date }) => {
-    const collectionKey = await findOrCreateCollection(config(COLLECTION_NAME))
+	getUserID()
+    const collectionKey = await findOrCreateCollection(config(DEFAULT_COLLECTION))
     const zoteroBookItem = generateTemplate({ title, authors, publisher, date, collectionKey })
     const url = `https://api.zotero.org/users/${config(USER_ID)}/items`
     const responseObject = await fetch(url, {

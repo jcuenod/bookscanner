@@ -1,4 +1,7 @@
-const allowed_keys = ["api_key", "user_id", "default_collection"]
+const API_KEY = "api_key"
+const USER_ID = "user_id"
+const DEFAULT_COLLECTION = "default_collection"
+const allowed_keys = [API_KEY, USER_ID, DEFAULT_COLLECTION]
 
 const validateKey = key => {
     if (!allowed_keys.includes(key)) {
@@ -11,13 +14,11 @@ const fetchAndParseSettings = () =>
 
 
 const SettingsManager = {
-    API_KEY: "api_key",
-    USER_ID: "user_id",
-    DEFAULT_COLLECTION: "default_collection",
+	API_KEY, USER_ID, DEFAULT_COLLECTION,
     get: key => {
         validateKey(key)
         const settings = fetchAndParseSettings()
-        return settings ?.[key]
+        return key in settings ? settings[key] : ""
     },
     getAll: () => {
         return fetchAndParseSettings()

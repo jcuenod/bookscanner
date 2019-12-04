@@ -1,10 +1,12 @@
-let _booklist = JSON.parse(localStorage.getItem("book_list")) || []
+const BOOK_LIST_KEY = "booklist"
+
+let _booklist = JSON.parse(localStorage.getItem(BOOK_LIST_KEY)) || []
 let next_uid = Math.max(0, ..._booklist.map(b => b.uid)) + 1
 let next_oid = 0
 const _observers = []
 
 const save = () => {
-	localStorage.setItem("booklist", JSON.stringify(_booklist))
+	localStorage.setItem(BOOK_LIST_KEY, JSON.stringify(_booklist))
 }
 const notifyObservers = () => {
 	_observers.forEach(o => {
